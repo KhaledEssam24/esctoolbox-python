@@ -6,58 +6,43 @@ from the mat files located in the Matlab ESCtoolbox at DYN/A123_DYN.
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
 
 # list of csv files based on magnitude and temperature
 magtemps = ['10_N25', '10_N15', '30_N05', '45_P05', '45_P15', '50_P25', '50_P35', '50_P45']
 
 # choose which group of files to plot, index should be a number from 0-7
-mag = magtemps[0]
+mag = magtemps[2]
 
 # plot data from the csv files
 
 plt.ion()
 plt.close('all')
 
-# individual plots for each script
 
-# for s in ['s1', 's2', 's3']:
-    # name = f'A123_DYN_{mag}_{s}'
-    # nfile = f'../dyn_data/{name}.csv'
-    # df = pd.read_csv(nfile, sep=', ', engine='python')
-    # voltage = df['voltage'].values
-    # current = df['current'].values
-    # time = df['time'].values
-    # t = (time - time[0])/3600
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    # plt.figure()
-    # plt.plot(t, voltage, color='red', lw=2)
-    # plt.xlabel('Time (hr)')
-    # plt.ylabel('Voltage (V)')
-    # plt.title(name)
-
-    # plt.figure()
-    # plt.plot(t, current, color='blue', lw=2)
-    # plt.xlabel('Time (hr)')
-    # plt.ylabel('Current (A)')
-    # plt.title(name)
-
-# data to plot from each script
-
-file1 = f'../dyn_data/A123_DYN_{mag}_s1.csv'
+file1 = os.path.join(script_dir, '..', 'dyn_data', f'A123_DYN_{mag}_s1.csv')
+file1 = os.path.normpath(file1)
 df1 = pd.read_csv(file1, sep=', ', engine='python')
 voltage1 = df1['voltage'].values
 current1 = df1['current'].values
 time1 = df1['time'].values
 t1 = (time1 - time1[0])/3600
 
-file2 = f'../dyn_data/A123_DYN_{mag}_s2.csv'
+file2 = os.path.join(script_dir, '..', 'dyn_data', f'A123_DYN_{mag}_s2.csv')
+file2 = os.path.normpath(file2)
+
 df2 = pd.read_csv(file2, sep=', ', engine='python')
 voltage2 = df2['voltage'].values
 current2 = df2['current'].values
 time2 = df2['time'].values
 t2 = (time2 - time2[0])/3600
 
-file3 = f'../dyn_data/A123_DYN_{mag}_s3.csv'
+file3 = os.path.join(script_dir, '..', 'dyn_data', f'A123_DYN_{mag}_s3.csv')
+file3 = os.path.normpath(file3)
+
+
 df3 = pd.read_csv(file3, sep=', ', engine='python')
 voltage3 = df3['voltage'].values
 current3 = df3['current'].values
@@ -103,4 +88,4 @@ ax3.set_title(f'A123_DYN_{mag}_s3', fontsize=10)
 fig.text(0.5, 0.01, 'Time (hr)', ha='center')
 fig.text(0.01, 0.5, 'Current (A)', va='center', rotation='vertical')
 plt.tight_layout()
-
+input("Press Enter to exit...")

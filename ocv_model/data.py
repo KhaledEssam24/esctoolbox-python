@@ -7,6 +7,7 @@ named A123_OCV_N05_S1, A123_OCV_N05_S2, A123_OCV_N05_S3, and A123_OCV_N05_S4.
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
 
 # Data
 # ------------------------------------------------------------------------------
@@ -15,22 +16,36 @@ import pandas as pd
 # files to read, values can be N05, N15, N25, P05, P15, P25, P35, or P45
 tc = 'N05'
 
-df1 = pd.read_csv('../ocv_data/A123_OCV_' + tc + '_S1.csv')
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+file_S1 = os.path.join(script_dir, '..', 'ocv_data', f'A123_OCV_{tc}_S1.csv')
+file_S1 = os.path.normpath(file_S1)
+df1 = pd.read_csv(file_S1)
+
 test_time1 = df1['Test_Time(s)']
 current1 = df1['Current(A)']
 voltage1 = df1['Voltage(V)']
 
-df2 = pd.read_csv('../ocv_data/A123_OCV_' + tc + '_S2.csv')
+file_S2 = os.path.join(script_dir, '..', 'ocv_data', f'A123_OCV_{tc}_S2.csv')
+file_S2 = os.path.normpath(file_S2)
+df2 = pd.read_csv(file_S2)
+
 test_time2 = df2['Test_Time(s)']
 current2 = df2['Current(A)']
 voltage2 = df2['Voltage(V)']
 
-df3 = pd.read_csv('../ocv_data/A123_OCV_' + tc + '_S3.csv')
+file_S3 = os.path.join(script_dir, '..', 'ocv_data', f'A123_OCV_{tc}_S3.csv')
+file_S3 = os.path.normpath(file_S3)
+df3 = pd.read_csv(file_S3)
+
 test_time3 = df3['Test_Time(s)']
 current3 = df3['Current(A)']
 voltage3 = df3['Voltage(V)']
 
-df4 = pd.read_csv('../ocv_data/A123_OCV_' + tc + '_S4.csv')
+file_S4 = os.path.join(script_dir, '..', 'ocv_data', f'A123_OCV_{tc}_S4.csv')
+file_S4 = os.path.normpath(file_S4)
+df4 = pd.read_csv(file_S4)
+
 test_time4 = df4['Test_Time(s)']
 current4 = df4['Current(A)']
 voltage4 = df4['Voltage(V)']
@@ -43,7 +58,10 @@ times = []
 volts = []
 
 for t in temps:
-    df = pd.read_csv('../ocv_data/A123_OCV_' + t + '_S1.csv')
+    file_temp = os.path.join(script_dir, '..', 'ocv_data', f'A123_OCV_{t}_S1.csv')
+    file_temp = os.path.normpath(file_temp)
+    df = pd.read_csv(file_temp)
+    
     time = df['Test_Time(s)'].values
     voltage = df['Voltage(V)'].values
     times.append(time)
@@ -126,3 +144,4 @@ ax2.plot(test_time4, voltage4, color='r', lw=2, label='voltage')
 ax2.set_ylabel('Voltage (V)', color='r')
 ax2.tick_params('y', colors='r')
 
+input("Press Enter to exit...")
